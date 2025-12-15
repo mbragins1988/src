@@ -14,12 +14,12 @@ class Single_new:
 
 a = Single_new()
 b = Single_new()
-print('1. Способ через __new__ -', a is b)  # True - один объект
+print("1. Способ через __new__ -", a is b)  # True - один объект
 
 # 2. Способ через модуль
 x = singleton_module.the_one
 y = singleton_module.the_one
-print('2. Способ через модуль -', x is y)  # True - один объект
+print("2. Способ через модуль -", x is y)  # True - один объект
 
 
 class SingleMeta(type):
@@ -40,4 +40,4 @@ class Single3(metaclass=SingleMeta):
 # Проверка:
 p = Single3()
 q = Single3()
-print('3. Способ через метакласс -', p is q)  # True - один объект
+print("3. Способ через метакласс -", p is q)  # True - один объект

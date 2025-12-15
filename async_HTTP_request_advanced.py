@@ -1,12 +1,12 @@
 import asyncio
-import aiohttp
 import json
+
+import aiohttp
 
 
 async def fetch_urls(input_file):
-
     # Читаем URL из файла
-    with open(input_file, 'r') as f:
+    with open(input_file, "r") as f:
         content = f.read()
         urls = content[1:-1].split('", "')
 
@@ -30,9 +30,10 @@ async def fetch_urls(input_file):
 
         # Запускаем ВСЕ запросы одновременно
         results = await asyncio.gather(*tasks)
-    with open('/Users/bragin/Desktop/results.json', 'w') as f:
-        print(*results, file=f, sep='\n')
+    with open("/Users/bragin/Desktop/results.json", "w") as f:
+        print(*results, file=f, sep="\n")
+
 
 # Пример использования
-if __name__ == '__main__':
-    asyncio.run(fetch_urls('/Users/bragin/Desktop/test_urls.txt'))
+if __name__ == "__main__":
+    asyncio.run(fetch_urls("/Users/bragin/Desktop/test_urls.txt"))

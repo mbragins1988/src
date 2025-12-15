@@ -9,7 +9,7 @@ def wsgi_app(environ, start_response):
     """
 
     # Получаем путь, например: /USD -> currency = "USD"
-    path = environ.get('PATH_INFO', '/')
+    path = environ.get("PATH_INFO", "/")
     currency = path[1:].upper()  # Убрали / и привели к верхнему регистру
 
     # Запрашиваем данные с API
@@ -21,9 +21,9 @@ def wsgi_app(environ, start_response):
 
     if response.status != 200:
         # Ошибка
-        start_response('500 Internal Server Error', [
-            ('Content-Type', 'application/json')
-        ])
+        start_response(
+            "500 Internal Server Error", [("Content-Type", "application/json")]
+        )
         return [b'{"error": "Failed to fetch exchange rates"}']
 
     # Читаем данные
@@ -31,8 +31,11 @@ def wsgi_app(environ, start_response):
     conn.close()
 
     # Отправляем успешный ответ
-    start_response('200 OK', [
-        ('Content-Type', 'application/json'),
-    ])
+    start_response(
+        "200 OK",
+        [
+            ("Content-Type", "application/json"),
+        ],
+    )
 
     return [data]

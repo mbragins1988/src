@@ -1,13 +1,14 @@
 import asyncio
-import aiohttp
 import json
+
+import aiohttp
 
 urls = [
     "https://example.com",
     "https://httpbin.org/status/404",
     "https://nonexistent.url",
     "https://google.com",
-    "https://yandex.ru"
+    "https://yandex.ru",
 ]
 
 
@@ -33,8 +34,9 @@ async def fetch_urls(urls):
         # Запускаем ВСЕ запросы одновременно
         results = await asyncio.gather(*tasks)
 
-        with open('/Users/bragin/Desktop/results.json', 'w') as f:
-            print(*results, file=f, sep='\n')
+        with open("/Users/bragin/Desktop/results.json", "w") as f:
+            print(*results, file=f, sep="\n")
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     asyncio.run(fetch_urls(urls))

@@ -1,8 +1,9 @@
 import concurrent.futures
+import json
 import random
 import time
-import json
 from multiprocessing import Pool, Process, Queue, cpu_count
+
 from tabulate import tabulate
 
 
@@ -31,7 +32,7 @@ def single_process(numbers):
     results = []
     for num in numbers:
         results.append(process_number(num))
-    results.insert(0, 'Однопоточный')
+    results.insert(0, "Однопоточный")
     return results
 
 
@@ -41,7 +42,6 @@ def threads(numbers):
     results = []
     # Создаём пул потоков
     with concurrent.futures.ThreadPoolExecutor() as pool:
-
         futures = []
         for num in numbers:
             future = pool.submit(process_number, num)
@@ -50,7 +50,7 @@ def threads(numbers):
         # Собираем результаты после работы всех потоков
         for future in futures:
             results.append(future.result())
-    results.insert(0, 'Многопоточный')
+    results.insert(0, "Многопоточный")
     return results
 
 
@@ -60,7 +60,7 @@ def pool(numbers):
     # Создаем пул процессов (количество ядер определяется автоматичкски)
     with Pool(processes=cpu_count()) as pool:
         results = pool.map(process_number, numbers)
-    results.insert(0, 'Process Pool (процессы)')
+    results.insert(0, "Process Pool (процессы)")
     return results
 
 
@@ -69,7 +69,7 @@ def worker(input_q, output_q):
 
     while True:
         num = input_q.get()  # Получаем число из очереди
-        if num is None:      # Сигнал остановки
+        if num is None:  # Сигнал остановки
             break
 
         # Вызываем рабочую функцию process_number
@@ -112,12 +112,11 @@ def process_queues(numbers):
     for p in processes:
         p.join()
 
-    results.insert(0, 'Process + Queue (процессы с очередями)')
+    results.insert(0, "Process + Queue (процессы с очередями)")
     return results
 
 
 if __name__ == "__main__":
-
     # Генерируем числа для теста
     test_numbers = generate_data(10000)
 
@@ -126,7 +125,7 @@ if __name__ == "__main__":
         ("Обычный (1 процесс)", single_process),
         ("Потоки", threads),
         ("Процессы с Pool", pool),
-        ("Процессы с очередями", process_queues)
+        ("Процессы с очередями", process_queues),
     ]
 
     print(f"Тестируем {len(all_ways)} способа:")
@@ -139,9 +138,7 @@ if __name__ == "__main__":
         time_process = time.time() - start
         times[name] = time_process
 
-        with open(
-            '/Users/bragin/Desktop/results.json', "a", encoding='utf-8'
-                ) as f:
+        with open("/Users/bragin/Desktop/results.json", "a", encoding="utf-8") as f:
             json.dump(results, f, indent=2, ensure_ascii=False)
 
     # Преобразуем словарь в список списков для tabulate
