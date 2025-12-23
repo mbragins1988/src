@@ -30,6 +30,7 @@ async def fetch_urls(urls):
     async with aiohttp.ClientSession() as session:
         # Создаем задачи
         tasks = [get_url(url, session) for url in urls]
+        print(tasks)
 
         # Запускаем ВСЕ запросы одновременно
         results = await asyncio.gather(*tasks)

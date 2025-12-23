@@ -138,7 +138,7 @@ if __name__ == "__main__":
         time_process = time.time() - start
         times[name] = time_process
 
-        with open("/Users/bragin/Desktop/results.json", "a", encoding="utf-8") as f:
+        with open("/Users/bragin/Desktop/src/results.json", "a", encoding="utf-8") as f:
             json.dump(results, f, indent=2, ensure_ascii=False)
 
     # Преобразуем словарь в список списков для tabulate
